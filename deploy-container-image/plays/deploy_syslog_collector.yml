@@ -1,0 +1,6 @@
+# plays/deploy_syslog_collector.yml
+---
+- name: Deploy syslog-collector with Podman
+  hosts: obz_nodes  # Target specific group in inventory
+  roles:
+    - syslog-collector

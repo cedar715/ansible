@@ -1,0 +1,16 @@
+# This task file handles the deployment of the syslog-collector container, configuring the environment as needed.
+---
+- name: Pull syslog-collector image
+  ansible.builtin.command:
+    cmd: "podman pull {{ syslog_collector_image }}"
+  register: podman_pull
+
+- name: Run syslog-collector container
+  ansible.builtin.command:
+    cmd: >
+      podman run -d --name syslog-collector
+      -p {{ syslog_collector_port }}:{{ syslog_collector_port }}
+      -v {{ syslog_collector_log_path }}:/app/logs
+      -e JAVA_OPTS="{{ java_opts }}"
+      {{ syslog_collector_image }}
+  when: podman_pull is succeeded

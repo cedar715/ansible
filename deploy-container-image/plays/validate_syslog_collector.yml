@@ -1,0 +1,12 @@
+# plays/validate_syslog_collector.yml
+---
+- name: Validate syslog-collector Deployment
+  hosts: obz_nodes
+  tasks:
+    - name: Check if syslog-collector container is running
+      ansible.builtin.command: "podman ps -f name=syslog-collector"
+      register: container_status
+
+    - name: Display container status
+      ansible.builtin.debug:
+        msg: "{{ container_status.stdout }}"

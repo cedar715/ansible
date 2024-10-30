@@ -1,0 +1,8 @@
+# The main task file includes sub-tasks to keep steps organized.
+
+---
+- name: Ensure Podman is installed
+  include_tasks: podman_install.yml
+
+- name: Deploy syslog-collector container
+  include_tasks: container_deploy.yml
